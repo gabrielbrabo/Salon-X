@@ -10,7 +10,7 @@ export const register = async (
     password, 
     confirmpassword
 ) => {
-    return api.post('/register', {
+    return api.post('/register/user', {
         name, 
         email,
         password, 

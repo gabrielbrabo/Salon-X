@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import {register } from '../../Api'
 import AsyncStorage from '@react-native-community/async-storage';
 import { UserContext } from '../../contexts/UserContext';
 import {
@@ -21,6 +22,8 @@ import PersonIcon from '../../assets/person.svg';
 
 export default () => {
 
+  const {dispatch: userDispatch} = useContext(UserContext);
+
   const navigation = useNavigation();
 
   const [name, setName] = useState('');
@@ -30,7 +33,31 @@ export default () => {
 
   const SignClick = async () => {
     if (name != '' && email != '' && password != '' && confirmpassword != '') {
+      const res = await register(
+        name, 
+        email,
+        password, 
+        confirmpassword
+      )
 
+      if(res.data.token){
+        await AsyncStorage.setItem('token', res.data.token);
+        
+        userDispatch({
+          type:'setAvatar',
+          payload:{
+            name: res.data.user.name,
+            //avatar: res.data.user.avatar,
+            email: res.data.user.email
+          }
+        });
+
+        navigation.reset({
+          routes:[{name:'Preload'}]
+        });
+      }
+    } else { 
+      alert("Por favor, preencha os campos!")
     }
   }
 
