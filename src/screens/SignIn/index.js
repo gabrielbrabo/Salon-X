@@ -50,13 +50,13 @@ export default () => {
         });
 
         navigation.reset({      // 3° Passo: Envia o usuário para MainTab.
-          routes:[{name:'SignUp'}]
+          routes:[{name:'MainTa'}]
         });
 
       } else {
         alert('E-mail e/ou senha inválidos!')
       }
-      
+
     } else {
       alert('Preencha os campos!')
     }

@@ -32,7 +32,7 @@ export default () => {
   const [confirmpassword, setConfirmPassword] = useState('');
 
   const SignClick = async () => {
-    
+
     if (name != '' && email != '' && password != '' && confirmpassword != '') {
       
       const res = await register(
@@ -68,7 +68,7 @@ export default () => {
 
   const MessageButtomclick = () => {
     navigation.reset({
-      routes: [{ name: 'SignIn' }]
+      routes: [{ name: 'MainTab' }]
     });
   }
   

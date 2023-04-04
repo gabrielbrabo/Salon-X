@@ -34,8 +34,8 @@ export default () => {
           userDispatch({
             type: 'setAvatar',
             payload: {
-              name: res.data.name,
               avatar: res.data.avatar,
+              name: res.data.name,
               email: res.data.email
             },
           });
@@ -43,11 +43,13 @@ export default () => {
           navigation.reset({
             routes: [
               {
-                name: 'SignIn',
+                name: 'MainTab',
               },
             ],
           });
 
+        } else {
+          navigation.navigate('SignIn');
         }
 
       } else {

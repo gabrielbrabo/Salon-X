@@ -1,12 +1,13 @@
 import React from 'react';
-import { Container } from './style';
+import {Text} from 'react-native'
+import { Container, LoadingIcon } from './style';
 
 export default () => {
   
   return (
-      <Container>
-        
-      </Container>
+    <Container>
+      <Text>Appointments</Text>  
+    </Container>
   )
 }
 
