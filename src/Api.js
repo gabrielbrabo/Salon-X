@@ -42,3 +42,19 @@ export const createSession = async (email, password) => {
         }
     }, [])
 }
+
+export const checkToken = async (id, token) => {
+    
+    return api.post('/refresh', {
+        id, token
+    })
+    .catch((error) => {
+        if (error) {
+            const result = JSON.stringify(
+                error.response.data.msg
+            )
+            alert(result)
+            window.location.reload()
+        }
+    }, [])
+}

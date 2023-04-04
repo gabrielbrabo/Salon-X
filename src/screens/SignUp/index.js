@@ -32,7 +32,9 @@ export default () => {
   const [confirmpassword, setConfirmPassword] = useState('');
 
   const SignClick = async () => {
+    
     if (name != '' && email != '' && password != '' && confirmpassword != '') {
+      
       const res = await register(
         name, 
         email,
@@ -41,20 +43,23 @@ export default () => {
       )
 
       if(res.data.token){
+
+        await AsyncStorage.setItem('id', res.data.id);
         await AsyncStorage.setItem('token', res.data.token);
-        
+
         userDispatch({
           type:'setAvatar',
           payload:{
-            name: res.data.user.name,
-            //avatar: res.data.user.avatar,
-            email: res.data.user.email
+            name: res.data.name,
+            avatar: res.data.avatar,
+            email: res.data.email
           }
         });
 
         navigation.reset({
-          routes:[{name:'Preload'}]
+          routes:[{name:'SignIn'}]
         });
+
       }
     } else { 
       alert("Por favor, preencha os campos!")

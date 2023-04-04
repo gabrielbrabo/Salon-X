@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {createSession } from '../../Api'
+import { createSession } from '../../Api'
 import { UserContext } from '../../contexts/UserContext';
 import {
   Container,
@@ -22,20 +22,41 @@ import LockIcon from '../../assets/lock.svg';
 
 export default () => {
 
+  const {dispatch: userDispatch} = useContext(UserContext);
+
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const SignClick = async () => {
+
     if (email != '' && password != '') {
+
       const res = await createSession(email, password)
 
       if (res.data.token) {
-        alert ('Deu Certo!')
+
+        await AsyncStorage.setItem('id', res.data.id);
+        await AsyncStorage.setItem('token', res.data.token);
+
+        userDispatch({
+          type:'setAvatar',
+          payload:{
+            name: res.data.name,
+            avatar: res.data.avatar,
+            email: res.data.email
+          }
+        });
+
+        navigation.reset({      // 3° Passo: Envia o usuário para MainTab.
+          routes:[{name:'SignUp'}]
+        });
+
       } else {
         alert('E-mail e/ou senha inválidos!')
       }
+      
     } else {
       alert('Preencha os campos!')
     }
