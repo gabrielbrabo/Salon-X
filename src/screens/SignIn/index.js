@@ -49,8 +49,8 @@ export default () => {
           }
         });
 
-        navigation.reset({      // 3° Passo: Envia o usuário para MainTab.
-          routes:[{name:'MainTa'}]
+        navigation.reset({
+          routes:[{name:'MainTab'}]
         });
 
       } else {

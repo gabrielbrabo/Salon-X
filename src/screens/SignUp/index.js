@@ -57,7 +57,7 @@ export default () => {
         });
 
         navigation.reset({
-          routes:[{name:'SignIn'}]
+          routes:[{name:'MainTab'}]
         });
 
       }
